@@ -258,6 +258,8 @@ public class Camera {
                  * altarstair   (Textura do degrau do altar)
                  * ceil         (Textura do teto)
                  * window       (Textura das janelas)
+                 * externalground(Textura de cimento da área externa da igreja)
+                 * externalground1(Textura de solo, lado de fora da igreja)
                  * */
                 textureList.add(Texture.loadTexture("chair"));              //0     - chair
                 textureList.add(Texture.loadTexture("wall"));               //1     - wall
@@ -271,6 +273,8 @@ public class Camera {
                 textureList.add(Texture.loadTexture("forro"));              //9     - altarstair
                 textureList.add(Texture.loadTexture("forro"));              //10    - ceil
                 textureList.add(Texture.loadTexture("forro"));              //11    - window
+                textureList.add(Texture.loadTexture("externalground"));     //12    - externalground
+                textureList.add(Texture.loadTexture("externalground1"));    //13    - externalground1
                 skyBox = new SkyBox(texture);
                 chair = new Chair(texture, 0, -10);
                 church = new Church(textureList);

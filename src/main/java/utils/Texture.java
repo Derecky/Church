@@ -9,18 +9,8 @@ import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
 import static org.lwjgl.stb.STBImage.*;
 public class Texture {
 
-    /**
-     * Stores the handle of the texture.
-     */
     private final int id;
-
-    /**
-     * Width of the texture.
-     */
     private int width;
-    /**
-     * Height of the texture.
-     */
     private int height;
 
     /** Creates a texture. */

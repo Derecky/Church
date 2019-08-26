@@ -1,6 +1,7 @@
 package structure;
 
 import things.*;
+import utils.ExternPlaces;
 import utils.Texture;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Church {
     private final Pulpit pulpit;
     private final Table table;
     private final Altar altar;
+    private final ExternPlaces externPlaces;
 
     /* Objects inside */
     private List<Texture> textures;
@@ -46,6 +48,7 @@ public class Church {
         this.table = new Table(textures);
         this.altar = new Altar(textures);
         this.altarChair = new AltarChair(textures);
+        this.externPlaces = new ExternPlaces(textures);
     }
 
     public void drawChurch(){
@@ -56,7 +59,7 @@ public class Church {
         putPilars();
         altarArch();
         drawCeil();
-        drawGround();
+        drawGroundChurch();
 
         facade.criarFachada();
         soundBoxes.putSoundBoxes();
@@ -64,6 +67,7 @@ public class Church {
         table.createTable();
         altar.createAltar();
         altarChair.altarChair();
+        externPlaces.makeExternalArea();
         putChairs();
 
         glPopMatrix();
@@ -586,19 +590,24 @@ public class Church {
 
     }
 
-    private void drawGround(){
+    private void drawGroundChurch(){
         glColor3f(0,1,1);
         textures.get(8).bind();
-        glBegin(GL_QUADS);
-        glTexCoord2f(0,0);
-        glVertex3f(-XSIZE,0,0);
-        glTexCoord2f(1,0);
-        glVertex3f(XSIZE,0,0);
-        glTexCoord2f(1,1);
-        glVertex3f(XSIZE,0,-3.5f*ZSIZE);
-        glTexCoord2f(0,1);
-        glVertex3f(-XSIZE,0,-3.5f*ZSIZE);
-        glEnd();
+
+        for(int i=(int) -XSIZE; i< XSIZE; i+=4 ) {
+            for (int j = 0; j >= -3.5f*ZSIZE; j -= 5) {
+                glBegin(GL_QUADS);
+                glTexCoord2f(0, 0);
+                glVertex3f(i, 0.f, j-5);
+                glTexCoord2f(0, 1);
+                glVertex3f(i, 0.f, j);
+                glTexCoord2f(1, 1);
+                glVertex3f(i+4, 0.0f, j);
+                glTexCoord2f(1, 0);
+                glVertex3f(i+4, 0.f, j-5);
+                glEnd();
+            }
+        }
     }
 
     private void putChairs(){
