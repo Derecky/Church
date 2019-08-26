@@ -90,7 +90,22 @@ public class Camera {
     void createTextures(){
 
     }
-
+    
+    void setUpLighting() {
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        glLightModeli(GL_LIGHT_MODEL_AMBIENT,GL_TRUE);
+        //
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, (new float[] {0.2f, 0.2f, 0.2f, 1.0f}));
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, (new float[] {0.8f, 0.8f, 0.8f, 1.0f}));
+        glLightfv(GL_LIGHT0, GL_SPECULAR, (new float[] {1.0f, 1.0f, 1.0f, 1.0f}));
+        //
+        glLightfv(GL_LIGHT0, GL_POSITION, (new float[] {10, 0, 0, 1}));
+        //
+        glEnable(GL_COLOR_MATERIAL);
+        glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    }
+    
     void init() {
         centralDoor = new Door(door_angle);
         leftDoor = new Door(door_angle);
@@ -163,6 +178,7 @@ public class Camera {
 
     void loop() {
         GL.createCapabilities();
+        setUpLighting();
 
         glEnable(GL_DEPTH_TEST);
 
