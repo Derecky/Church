@@ -40,6 +40,7 @@ public class Camera {
     float movementSpeed = 2.666f;
 
     /* Door Control */
+    Door backdoors;
     Door centralDoor;
     Door leftDoor;
     Door rightDoor;
@@ -94,6 +95,7 @@ public class Camera {
         centralDoor = new Door(door_angle);
         leftDoor = new Door(door_angle);
         rightDoor = new Door(door_angle);
+        backdoors = new Door(door_angle);
 
 
         glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
@@ -260,6 +262,7 @@ public class Camera {
                  * window       (Textura das janelas)
                  * externalground(Textura de cimento da área externa da igreja)
                  * externalground1(Textura de solo, lado de fora da igreja)
+                 * telhado      (Textura do telhado da igreja)
                  * */
                 textureList.add(Texture.loadTexture("chair"));              //0     - chair
                 textureList.add(Texture.loadTexture("wall"));               //1     - wall
@@ -275,18 +278,20 @@ public class Camera {
                 textureList.add(Texture.loadTexture("forro"));              //11    - window
                 textureList.add(Texture.loadTexture("externalground"));     //12    - externalground
                 textureList.add(Texture.loadTexture("externalground1"));    //13    - externalground1
+                textureList.add(Texture.loadTexture("telhado"));            //14    - telhado
                 skyBox = new SkyBox(texture);
                 chair = new Chair(texture, 0, -10);
                 church = new Church(textureList);
             }
             /* Aqui inicia a área de rendering */
-            makeGrid();
+//            makeGrid();
 
 
             church.drawChurch();
             centralDoor.update(0, 3, textureList, door_angle);
             leftDoor.update(12.5f,2.5f, textureList, door_angle);
             rightDoor.update(-12.5f,2.5f, textureList, door_angle);
+            backdoors.drawBackDoors(18.f,3f);
             /* Aqui termina a área de rendering*/
 
             glfwSwapBuffers(window);

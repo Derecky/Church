@@ -59,6 +59,7 @@ public class Church {
         putPilars();
         altarArch();
         drawCeil();
+        putTelhado();
         drawGroundChurch();
 
         facade.criarFachada();
@@ -605,6 +606,58 @@ public class Church {
                 glVertex3f(i+4, 0.0f, j);
                 glTexCoord2f(1, 0);
                 glVertex3f(i+4, 0.f, j-5);
+                glEnd();
+            }
+        }
+
+        for(int i = (int) (-2*XSIZE); i< -XSIZE; i+=4 ) {
+            for (int j = (int) (-2.5f*ZSIZE); j >= -3.f*ZSIZE; j -= 5) {
+                glBegin(GL_QUADS);
+                glTexCoord2f(0, 0);
+                glVertex3f(i, 0.f, j-5);
+                glTexCoord2f(0, 1);
+                glVertex3f(i, 0.f, j);
+                glTexCoord2f(1, 1);
+                glVertex3f(i+4, 0.0f, j);
+                glTexCoord2f(1, 0);
+                glVertex3f(i+4, 0.f, j-5);
+                glEnd();
+            }
+        }
+
+
+    }
+
+    private void putTelhado(){
+        textures.get(14).bind();
+        glColor3f(0.226f,0.114f,0.091f);
+
+//        int k=15;
+        for(int i=0, k=15; i<XSIZE; i+=4, k--){
+            for(int j=0; j>-3.5*ZSIZE ; j-=5){
+
+                //right
+                glBegin(GL_QUADS);
+                glTexCoord2f(0,0);
+                glVertex3f(i, k,j);
+                glTexCoord2f(1,0);
+                glVertex3f(i, k, j-5);
+                glTexCoord2f(1,1);
+                glVertex3f(i+4, k-1,j-5);
+                glTexCoord2f(0,1);
+                glVertex3f(i+4, k-1, j);
+                glEnd();
+
+                //left
+                glBegin(GL_QUADS);
+                glTexCoord2f(0,0);
+                glVertex3f(-i, k,j);
+                glTexCoord2f(0,1);
+                glVertex3f(-i-4, k-1, j);
+                glTexCoord2f(1,1);
+                glVertex3f(-i-4, k-1,j-5);
+                glTexCoord2f(1,0);
+                glVertex3f(-i, k, j-5);
                 glEnd();
             }
         }
