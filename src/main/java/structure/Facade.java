@@ -427,31 +427,33 @@ public class Facade {
     private void criarVitral(){
 
         glPushMatrix();
+        glColor3f(1,1,1);
         textures.get(4).bind();
         glBegin(GL_QUAD_STRIP);
-        glTexCoord2f(0,0.25f);
+        glTexCoord2f(0.1f,0.55f);
         glVertex3f(-2f, 8f, 0.51f);
-        glTexCoord2f(0,0.5f);
+        glTexCoord2f(0.1f,0.65f);
         glVertex3f(-2f, 10f, 0.51f);
-        glTexCoord2f(0.25f,0.25f);
+        glTexCoord2f(0.3125f,0.55f);
         glVertex3f(-0.75f, 8f, 0.51f);
-        glTexCoord2f(0.25f,0.5f);
+        glTexCoord2f(0.3125f,0.65f);
         glVertex3f(-0.75f, 10f, 0.51f);
-        glTexCoord2f(-0.75f,0.25f);
+        glTexCoord2f(0.6875f,0.55f);
         glVertex3f(0.75f, 8f, 0.51f);
-        glTexCoord2f(-0.75f,0.5f);
+        glTexCoord2f(0.6875f,0.65f);
         glVertex3f(0.75f, 10f, 0.51f);
-        glTexCoord2f(1,0.25f);
+        glTexCoord2f(0.9f,0.55f);
         glVertex3f(2f, 8f, 0.51f);
-        glTexCoord2f(1,0.5f);
+        glTexCoord2f(0.9f,0.65f);
         glVertex3f(2f, 10f, 0.51f);
 
         glEnd();
 
         glBegin(GL_POLYGON);
-        for (int i = 0; i < 360; i++) {
+        for (int i = 0, j = 0; i < 360; i++, j++) {
             float angle = (float) (2*Math.PI*i/360);
             if(sin(angle) >= 0 ){
+                glTexCoord2f(0.1f + (float)(cos(angle)+1)/2.35f , 0.65f + (float)sin(angle)*0.1f);
                 glVertex3f((float)cos(angle)*2f, (float)sin(angle)*1f + 10.f ,  0.51f);
             }
         }
@@ -459,7 +461,7 @@ public class Facade {
 
         /* Linhas do vitral*/
         glColor3f(0,0,0);
-//        glLineWidth(2);
+        glLineWidth(2);
         glBegin(GL_LINE_LOOP);
         for (int i = 0; i < 360; i++) {
             float angle = (float) (2*Math.PI*i/360);
@@ -492,9 +494,20 @@ public class Facade {
         glPopMatrix();
 
         glPushMatrix();
-        textures.get(5).bind();
         /* Arcos acima das portas */
         //centro
+        glColor3f(1,1,1);
+        textures.get(5).bind();
+        glBegin(GL_POLYGON);
+        for (int i = 0; i < 360; i++) {
+            float angle = (float) (2*Math.PI*i/360);
+            if(sin(angle) >= 0 ){
+                glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float)sin(angle));
+                glVertex3f((float)cos(angle)*3, (float)sin(angle)*1.5f + 5.5f ,  0.51f);
+            }
+        }
+
+        glEnd();
         glBegin(GL_LINE_LOOP);
         for (int i = 0; i < 360; i++) {
             float angle = (float) (2*Math.PI*i/360);
@@ -504,6 +517,15 @@ public class Facade {
         }
         glEnd();
         //direita
+        glBegin(GL_POLYGON);
+        for (int i = 0; i < 360; i++) {
+            float angle = (float) (2*Math.PI*i/360);
+            if(sin(angle) >= 0 ){
+                glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float)sin(angle));
+                glVertex3f((float)cos(angle)*2.5f + 12.5f, (float)sin(angle)*1.5f + 5.5f ,  0.51f);
+            }
+        }
+        glEnd();
         glBegin(GL_LINE_LOOP);
         for (int i = 0; i < 360; i++) {
             float angle = (float) (2*Math.PI*i/360);
@@ -512,7 +534,17 @@ public class Facade {
             }
         }
         glEnd();
+
         //esquerda
+        glBegin(GL_POLYGON);
+        for (int i = 0; i < 360; i++) {
+            float angle = (float) (2*Math.PI*i/360);
+            if(sin(angle) >= 0 ){
+                glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float)sin(angle));
+                glVertex3f((float)cos(angle)*2.5f - 12.5f, (float)sin(angle)*1.5f + 5.5f ,  0.51f);
+            }
+        }
+        glEnd();
         glBegin(GL_LINE_LOOP);
         for (int i = 0; i < 360; i++) {
             float angle = (float) (2*Math.PI*i/360);
@@ -521,7 +553,6 @@ public class Facade {
             }
         }
         glEnd();
-
         glPopMatrix();
 
 

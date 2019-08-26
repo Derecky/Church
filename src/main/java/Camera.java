@@ -216,11 +216,11 @@ public class Camera {
             /* Botões para alterar estado das portas */
             if (keyDown[GLFW_KEY_O]) {
                 if(door_angle >= -2.814)
-                    door_angle -= 0.002f;
+                    door_angle -= 0.004f;
             }
             if (keyDown[GLFW_KEY_C]) {
                 if(door_angle <= 0)
-                    door_angle += 0.002f;
+                    door_angle += 0.004f;
             }
 
             rotX = mouseY;
@@ -250,31 +250,33 @@ public class Camera {
                  * wall         (toda estrutura),
                  * wall2        (Parede central do altar),
                  * wall3        (Pilastras da fachada),
-                 * Vitral       (Textura do vitral central)
+                 * Vitralfachada(Textura do vitral central)
                  * vitral2      (Textura dos vitrais acima da porta)
                  * door         (Portas entrada)
                  * cruz         (Crucifixo externo, centro)
                  * ground       (Textura do piso)
                  * altarstair   (Textura do degrau do altar)
                  * ceil         (Textura do teto)
+                 * window       (Textura das janelas)
                  * */
-                textureList.add(Texture.loadTexture("chair"));              //0
-                textureList.add(Texture.loadTexture("wall"));               //1
-                textureList.add(Texture.loadTexture("wall2"));              //2
-                textureList.add(Texture.loadTexture("forro"));              //3
-                textureList.add(Texture.loadTexture("vitralfachada"));      //4
-                textureList.add(Texture.loadTexture("forro"));              //5
-                textureList.add(Texture.loadTexture("door"));              //6
-                textureList.add(Texture.loadTexture("forro"));              //7
-                textureList.add(Texture.loadTexture("forro"));              //8
-                textureList.add(Texture.loadTexture("forro"));              //9
-                textureList.add(Texture.loadTexture("forro"));              //10
+                textureList.add(Texture.loadTexture("chair"));              //0     - chair
+                textureList.add(Texture.loadTexture("wall"));               //1     - wall
+                textureList.add(Texture.loadTexture("wall2"));              //2     - wall2
+                textureList.add(Texture.loadTexture("forro"));              //3     - wall3
+                textureList.add(Texture.loadTexture("vitralfachada"));      //4     - vitralfachada
+                textureList.add(Texture.loadTexture("vitral2"));            //5     - vitral2
+                textureList.add(Texture.loadTexture("door"));               //6     - door
+                textureList.add(Texture.loadTexture("forro"));              //7     - cruz
+                textureList.add(Texture.loadTexture("forro"));              //8     - ground
+                textureList.add(Texture.loadTexture("forro"));              //9     - altarstair
+                textureList.add(Texture.loadTexture("forro"));              //10    - ceil
+                textureList.add(Texture.loadTexture("forro"));              //11    - window
                 skyBox = new SkyBox(texture);
                 chair = new Chair(texture, 0, -10);
                 church = new Church(textureList);
             }
             /* Aqui inicia a área de rendering */
-//            makeGrid();
+            makeGrid();
 
 
             church.drawChurch();

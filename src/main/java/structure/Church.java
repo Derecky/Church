@@ -1,6 +1,5 @@
 package structure;
 
-import com.sun.prism.impl.TextureResourcePool;
 import things.*;
 import utils.Texture;
 
@@ -57,6 +56,7 @@ public class Church {
         putPilars();
         altarArch();
         drawCeil();
+        drawGround();
 
         facade.criarFachada();
         soundBoxes.putSoundBoxes();
@@ -358,9 +358,6 @@ public class Church {
         glVertex3f(-XSIZE - thickness, YSIZE, -2.5f * ZSIZE);
         glEnd();
 
-
-
-
         /* Parede esquerda portinha esquerda */
         glBegin(GL_QUAD_STRIP);
         glTexCoord2f(0,0);
@@ -386,7 +383,6 @@ public class Church {
         glEnd();
 
         /* Parede cima portinha direita */
-
         glBegin(GL_QUAD_STRIP);
         glTexCoord2f(0,0.f);
         glVertex3f(XSIZE - 2, 5f, -3.5f * ZSIZE + 17 + thickness);
@@ -415,7 +411,6 @@ public class Church {
         glEnd();
 
         /* Parede cima portinha esquerda */
-
         glBegin(GL_QUAD_STRIP);
         glTexCoord2f(0,0.f);
         glVertex3f(-XSIZE + 2, 5f, -3.5f * ZSIZE + 17 + thickness);
@@ -589,6 +584,21 @@ public class Church {
 
         glEnd();
 
+    }
+
+    private void drawGround(){
+        glColor3f(0,1,1);
+        textures.get(8).bind();
+        glBegin(GL_QUADS);
+        glTexCoord2f(0,0);
+        glVertex3f(-XSIZE,0,0);
+        glTexCoord2f(1,0);
+        glVertex3f(XSIZE,0,0);
+        glTexCoord2f(1,1);
+        glVertex3f(XSIZE,0,-3.5f*ZSIZE);
+        glTexCoord2f(0,1);
+        glVertex3f(-XSIZE,0,-3.5f*ZSIZE);
+        glEnd();
     }
 
     private void putChairs(){

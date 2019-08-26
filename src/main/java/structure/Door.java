@@ -27,12 +27,13 @@ public class Door {
         this.textures = textures;
         this.door_angle = door_angle;
         drawDoubleDoorXPosition(x, tam);
+
     }
 
     public void drawDoubleDoorXPosition(float x, float tam){
 
-        pointright = new Vector3f((float) (3*cos(door_angle)),0, (float) (3*sin(door_angle)));
-        pointleft = new Vector3f((float) (3*cos(door_angle)), 0 , (float) (3*sin(door_angle)));
+        pointright = new Vector3f((float) (tam*cos(door_angle)),0, (float) (tam*sin(door_angle)));
+        pointleft = new Vector3f((float) (tam*cos(door_angle)), 0 , (float) (tam*sin(door_angle)));
 
         glColor3f(0.9f,0.9f,0.9f);
         textures.get(6).bind();
