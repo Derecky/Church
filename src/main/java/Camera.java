@@ -105,7 +105,7 @@ public class Camera {
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
     }
-    
+
     void init() {
         centralDoor = new Door(door_angle);
         leftDoor = new Door(door_angle);
