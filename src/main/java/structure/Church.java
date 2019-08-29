@@ -592,7 +592,7 @@ public class Church {
     }
 
     private void drawGroundChurch(){
-        glColor3f(0,1,1);
+        glColor3f(0.75f,0.75f,0.75f);
         textures.get(8).bind();
 
         for(int i=(int) -XSIZE; i< XSIZE; i+=4 ) {
