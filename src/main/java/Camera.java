@@ -6,7 +6,6 @@ import org.lwjgl.opengl.GL;
 import structure.Church;
 import structure.Door;
 import things.Chair;
-import utils.RadiosityDemo;
 import utils.SkyBox;
 import utils.Texture;
 
@@ -58,7 +57,7 @@ public class Camera {
     float rotY = 0.0f;
 
     /* Variáveis de teste */
-    RadiosityDemo demo = new RadiosityDemo();
+
     ArrayList<Texture> textureList;
     Texture texture;
     SkyBox skyBox;
@@ -90,6 +89,21 @@ public class Camera {
 
     void createTextures(){
 
+    }
+    
+    void setUpLighting() {
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        glLightModeli(GL_LIGHT_MODEL_AMBIENT,GL_TRUE);
+        //
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, (new float[] {0.2f, 0.2f, 0.2f, 1.0f}));
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, (new float[] {0.8f, 0.8f, 0.8f, 1.0f}));
+        glLightfv(GL_LIGHT0, GL_SPECULAR, (new float[] {1.0f, 1.0f, 1.0f, 1.0f}));
+        //
+        glLightfv(GL_LIGHT0, GL_POSITION, (new float[] {10, 0, 0, 1}));
+        //
+        glEnable(GL_COLOR_MATERIAL);
+        glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
     }
 
     void init() {
@@ -164,6 +178,7 @@ public class Camera {
 
     void loop() {
         GL.createCapabilities();
+        setUpLighting();
 
         glEnable(GL_DEPTH_TEST);
 
@@ -273,7 +288,7 @@ public class Camera {
                 textureList.add(Texture.loadTexture("vitral2"));            //5     - vitral2
                 textureList.add(Texture.loadTexture("door"));               //6     - door
                 textureList.add(Texture.loadTexture("forro"));              //7     - cruz
-                textureList.add(Texture.loadTexture("piso"));              //8     - ground
+                textureList.add(Texture.loadTexture("forro"));              //8     - ground
                 textureList.add(Texture.loadTexture("forro"));              //9     - altarstair
                 textureList.add(Texture.loadTexture("forro"));              //10    - ceil
                 textureList.add(Texture.loadTexture("forro"));              //11    - window
@@ -283,7 +298,6 @@ public class Camera {
                 skyBox = new SkyBox(texture);
                 chair = new Chair(texture, 0, -10);
                 church = new Church(textureList);
-
             }
             /* Aqui inicia a área de rendering */
 //            makeGrid();
@@ -294,7 +308,6 @@ public class Camera {
             leftDoor.update(12.5f,2.5f, textureList, door_angle);
             rightDoor.update(-12.5f,2.5f, textureList, door_angle);
             backdoors.drawBackDoors(18.f,3f);
-
             /* Aqui termina a área de rendering*/
 
             glfwSwapBuffers(window);
@@ -334,5 +347,4 @@ public class Camera {
     public static void main(String[] args) throws IOException {
         new Camera().run();
     }
-
 }
