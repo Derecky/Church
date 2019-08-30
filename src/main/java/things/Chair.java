@@ -23,7 +23,7 @@ public class Chair {
     public void drawChair(){
         glPushMatrix();
         texture.bind();
-        glColor3f(0.6f,0.432f,0.264f);
+        glColor4f(0.6f,0.432f,0.264f, 0);
         hasteChairCenter();
         hasteChair();
         assento();

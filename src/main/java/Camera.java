@@ -365,7 +365,7 @@ public class Camera {
             leftDoor.update(12.5f,2.5f, textureList, door_angle);
             rightDoor.update(-12.5f,2.5f, textureList, door_angle);
             backdoors.drawBackDoors(18.f,3f);
-//            setUpLighting();
+            setUpLighting();
             /* Aqui termina a área de rendering*/
 
             glfwSwapBuffers(window);
