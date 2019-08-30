@@ -92,18 +92,69 @@ public class Camera {
     }
     
     void setUpLighting() {
-        glEnable(GL_LIGHTING);
-        glEnable(GL_LIGHT0);
-        glLightModeli(GL_LIGHT_MODEL_AMBIENT,GL_TRUE);
+//        glEnable(GL_LIGHTING);
+//        glEnable(GL_LIGHT0);
+//        glLightModeli(GL_LIGHT_MODEL_AMBIENT,GL_TRUE);
         //
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, (new float[] {0.2f, 0.2f, 0.2f, 1.0f}));
-        glLightfv(GL_LIGHT0, GL_DIFFUSE, (new float[] {0.8f, 0.8f, 0.8f, 1.0f}));
-        glLightfv(GL_LIGHT0, GL_SPECULAR, (new float[] {1.0f, 1.0f, 1.0f, 1.0f}));
+//        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, (new float[] {0.2f, 0.2f, 0.2f, 1.0f}));
+//        glLightfv(GL_LIGHT0, GL_DIFFUSE, (new float[] {0.7f, 0.7f, 0.7f, 1.0f}));
+//        glLightfv(GL_LIGHT0, GL_SPECULAR, (new float[] {1.0f, 1.0f, 1.0f, 1.0f}));
         //
-        glLightfv(GL_LIGHT0, GL_POSITION, (new float[] {10, 0, 0, 1}));
-        //
+        float[] luzAmbiente = {0.2f, 0.2f, 0.2f, 1.0f};
+        float[] luzDifusa = {0.7f,0.7f,0.7f,1.0f};	        // "cor"
+        float[] luzEspecular = {1.0f, 1.0f, 1.0f, 1.0f};    // "brilho"
+        float[] posicaoLuz = {0.0f, 50.0f, 50.0f, 1.0f};
+
+        // Capacidade de brilho do material
+        float[] especularidade = {1.0f,1.0f,1.0f,1.0f};
+        int especMaterial = 60;
+
+        // Habilita o modelo de colorização de Gouraud
+        glShadeModel(GL_SMOOTH);
+
+        // Define a refletância do material
+        glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
+        // Define a concentração do brilho
+        glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+
+        // Ativa o uso da luz ambiente
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
+
+        // Define os parâmetros da luz de número 0
+        glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa );
+        glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular );
+        glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz );
+
+        // Habilita a definição da cor do material a partir da cor corrente
         glEnable(GL_COLOR_MATERIAL);
-        glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+        //Habilita o uso de iluminação
+        glEnable(GL_LIGHTING);
+        // Habilita a luz de número 0
+        glEnable(GL_LIGHT0);
+        // Habilita o depth-buffering
+        glEnable(GL_DEPTH_TEST);
+
+
+        // Especifica que a cor de fundo da janela será preta
+//        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+//
+//
+//        glLightfv(GL_LIGHT0, GL_POSITION, (new float[] {6, 5, 100, 1}));
+        //
+//        glClearColor(1,1,1,1);
+//        glShadeModel(GL_SMOOTH);
+//        glEnable(GL_COLOR_MATERIAL);
+//        glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+        // Habilita a definição da cor do material a partir da cor corrente
+//        glEnable(GL_COLOR_MATERIAL);
+        //Habilita o uso de iluminação
+//        glEnable(GL_LIGHTING);
+        // Habilita a luz de número 0
+//        glEnable(GL_LIGHT0);
+        // Habilita o depth-buffering
+//        glEnable(GL_DEPTH_TEST);
     }
 
     void init() {
@@ -178,14 +229,13 @@ public class Camera {
 
     void loop() {
         GL.createCapabilities();
-        setUpLighting();
-
         glEnable(GL_DEPTH_TEST);
 
         /* Verificar esse clear color */
         glClearColor(0.97f, 0.97f, 0.97f, 1.0f);
 
         long lastTime = System.nanoTime();
+
 
         while (!glfwWindowShouldClose(window)) {
 
@@ -248,6 +298,7 @@ public class Camera {
             glLoadMatrixf(mat.setPerspective((float) Math.toRadians(45), (float) width / height, 0.01f, 100.0f).get(fb));
 
             glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity();
             mat.identity()
                 .rotateX(rotX)
                 .rotateY(rotY)
@@ -288,7 +339,7 @@ public class Camera {
                 textureList.add(Texture.loadTexture("vitral2"));            //5     - vitral2
                 textureList.add(Texture.loadTexture("door"));               //6     - door
                 textureList.add(Texture.loadTexture("forro"));              //7     - cruz
-                textureList.add(Texture.loadTexture("forro"));              //8     - ground
+                textureList.add(Texture.loadTexture("piso"));              //8     - ground
                 textureList.add(Texture.loadTexture("forro"));              //9     - altarstair
                 textureList.add(Texture.loadTexture("forro"));              //10    - ceil
                 textureList.add(Texture.loadTexture("forro"));              //11    - window
@@ -300,7 +351,7 @@ public class Camera {
                 church = new Church(textureList);
             }
             /* Aqui inicia a área de rendering */
-//            makeGrid();
+            makeGrid();
 
 
             church.drawChurch();
@@ -308,11 +359,13 @@ public class Camera {
             leftDoor.update(12.5f,2.5f, textureList, door_angle);
             rightDoor.update(-12.5f,2.5f, textureList, door_angle);
             backdoors.drawBackDoors(18.f,3f);
+            setUpLighting();
             /* Aqui termina a área de rendering*/
 
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
+
     }
 
     public static void makeGrid(){
