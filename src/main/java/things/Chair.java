@@ -37,6 +37,7 @@ public class Chair {
         /* costa */
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,0,1);
         glTexCoord2f(0,0);
         glVertex3f(x - 3 - thickness, 2.7f, z );
         glTexCoord2f(1,0);
@@ -51,6 +52,7 @@ public class Chair {
         /* frente */
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,0,-1);
         glTexCoord2f(0,0);
         glVertex3f(x - 3 - thickness, 2.7f, z - 2*thickness);
         glTexCoord2f(1,0);
@@ -65,6 +67,7 @@ public class Chair {
         /* cima */
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,1,0);
         glTexCoord2f(0,0);
         glVertex3f(x - 3 - thickness, 2.7f, z - 2*thickness);
         glTexCoord2f(1,0);
@@ -79,6 +82,7 @@ public class Chair {
         /* baixo */
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,-1,0);
         glTexCoord2f(0,0);
         glVertex3f(x - 3 - thickness, 2f, z - 2*thickness);
         glTexCoord2f(1,0);
@@ -97,6 +101,7 @@ public class Chair {
         /* Cima */
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,1,0);
         glTexCoord2f(0,0);
         glVertex3f(x-3+thickness, 1.5f-thickness, z-2f);
         glTexCoord2f(0,1);
@@ -111,6 +116,7 @@ public class Chair {
         /* baixo */
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,-1,0);
         glTexCoord2f(0,0);
         glVertex3f(x-3+thickness, 1.5f-3*thickness, z-2f);
         glTexCoord2f(0,1);
@@ -125,6 +131,7 @@ public class Chair {
         /* trás */
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,0,1);
         glTexCoord2f(0,0);
         glVertex3f(x-3+thickness, 1.5f-thickness, z-0.1f);
         glTexCoord2f(0,1);
@@ -139,6 +146,8 @@ public class Chair {
         /* frente */
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,0,-1);
+        glNormal3f(0,0,-1);
         glTexCoord2f(0,0);
         glVertex3f(x-3+thickness, 1.5f-thickness, z-2f);
         glTexCoord2f(0,1);
@@ -154,6 +163,7 @@ public class Chair {
     private void hasteChairCenter() {
         glPushMatrix();
         glBegin(GL_POLYGON);
+        glNormal3f(-1,0,0);
         glTexCoord2f(0,1);
         glVertex3f(x-thickness, 0, z);
         glTexCoord2f(1,1);
@@ -171,6 +181,7 @@ public class Chair {
 
         glPushMatrix();
         glBegin(GL_POLYGON);
+        glNormal3f(1,0,0);
         glTexCoord2f(0,1);
         glVertex3f(x+thickness, 0, z);
         glTexCoord2f(1,1);
@@ -187,30 +198,45 @@ public class Chair {
         glPopMatrix();
 
         glBegin(GL_QUAD_STRIP);
+        glNormal3f(0,-1,0);         //1
         glTexCoord2f(0, 1);
         glVertex3f(x-thickness, 0, z);
         glTexCoord2f(1,1);
         glVertex3f(x+thickness, 0, z);
+
+        glNormal3f(0,0,-1);         //2
         glTexCoord2f(0,0.25f);
         glVertex3f(x-thickness, 0,z-2);
         glTexCoord2f(1,0.25f);
         glVertex3f(x+thickness, 0,z-2);
+
+        glNormal3f(0,1,0);          //3
         glTexCoord2f(0,0.5f);
         glVertex3f(x-thickness,1.5f-3*thickness,z-2 );
         glTexCoord2f(1,0.5f);
         glVertex3f(x+thickness,1.5f-3*thickness,z-2 );
+
+        glNormal3f(0,0,-1);         //4
         glTexCoord2f(0,0.75f);
         glVertex3f(x-thickness, 1.5f-3*thickness,z-0.1f);
         glTexCoord2f(1,0.75f);
         glVertex3f(x+thickness, 1.5f-3*thickness,z-0.1f);
-        glTexCoord2f(0,1f);
+
+        glNormal3f(0,1,0);          //5
+        glTexCoord2f(0,0.8f);
         glVertex3f(x-thickness,2.f,z-0.1f);
-        glTexCoord2f(1,1f);
+        glTexCoord2f(1,0.8f);
         glVertex3f(x+thickness,2.f,z-0.1f);
 
+        glTexCoord2f(0,0.9f);                //6
         glVertex3f(x-thickness,2.f,z);
+        glTexCoord2f(0,0.9f);
         glVertex3f(x+thickness,2.f,z);
 
+        glTexCoord2f(0,1.f);
+        glVertex3f(x-thickness,0.f,z);
+        glTexCoord2f(0,1.f);
+        glVertex3f(x+thickness,0.f,z);
         glEnd();
 
     }
@@ -220,7 +246,7 @@ public class Chair {
         /* esquerda */
         glPushMatrix();
         glBegin(GL_POLYGON);
-
+        glNormal3f(-1,0,0);
         glTexCoord2f(0,1);
         glVertex3f(x-3-thickness, 0, z);
         glTexCoord2f(1,1);
@@ -239,6 +265,7 @@ public class Chair {
         /* direita */
         glPushMatrix();
         glBegin(GL_POLYGON);
+        glNormal3f(1,0,0);
         glTexCoord2f(0,1);
         glVertex3f(x-3+thickness, 0, z);
         glTexCoord2f(1,1);
@@ -256,27 +283,31 @@ public class Chair {
 
         /* tira entre laterais */
         glBegin(GL_QUAD_STRIP);
-        glTexCoord2f(0,1);
+        glTexCoord2f(0,1);                  //1
         glVertex3f(x-3-thickness, 0, z);
         glTexCoord2f(1,1);
         glVertex3f(x-3+thickness, 0, z);
-        glTexCoord2f(0,0.8f);
+
+        glTexCoord2f(0,0.8f);               //2
         glVertex3f(x-3-thickness, 0,z-2);
         glTexCoord2f(1,0.8f);
         glVertex3f(x-3+thickness, 0,z-2);
-        glTexCoord2f(0,0.6f);
+
+        glTexCoord2f(0,0.6f);               //3
         glVertex3f(x-3-thickness,1.5f,z-2 );
         glTexCoord2f(1,0.6f);
         glVertex3f(x-3+thickness,1.5f,z-2 );
-        glTexCoord2f(0,0.4f);
+
+
+        glTexCoord2f(0,0.4f);               //4
         glVertex3f(x-3-thickness, 1.5f,z-0.5f);
         glTexCoord2f(1,0.4f);
         glVertex3f(x-3+thickness, 1.5f,z-0.5f);
-        glTexCoord2f(0,0.2f);
+        glTexCoord2f(0,0.2f);               //5
         glVertex3f(x-3-thickness,3,z-0.5f);
         glTexCoord2f(1,0.2f);
         glVertex3f(x-3+thickness,3,z-0.5f);
-        glTexCoord2f(0,0f);
+        glTexCoord2f(0,0f);                 //6
         glVertex3f(x-3-thickness,3,z);
         glTexCoord2f(1,0f);
         glVertex3f(x-3+thickness,3,z);

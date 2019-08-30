@@ -77,9 +77,10 @@ public class Church {
     private void drawCeil(){
         for(int i = (int) -XSIZE; i<XSIZE; i+=4) {
             glPushMatrix();
-            glColor4f(1,1,1,1);
+            glColor4f(1,1,1,0);
             textures.get(10).bind();
             glBegin(GL_QUADS);
+            glNormal3f(0,-1,0);
             glTexCoord2f(0,1);
             glVertex3f(i,YSIZE, 0);
             glTexCoord2f(1,1);
@@ -598,6 +599,7 @@ public class Church {
         for(int i=(int) -XSIZE; i< XSIZE; i+=4 ) {
             for (int j = 0; j >= -3.5f*ZSIZE; j -= 5) {
                 glBegin(GL_QUADS);
+                glNormal3f(0,1,0);
                 glTexCoord2f(0, 0);
                 glVertex3f(i, 0.f, j-5);
                 glTexCoord2f(0, 1);
@@ -613,6 +615,7 @@ public class Church {
         for(int i = (int) (-2*XSIZE); i< -XSIZE; i+=4 ) {
             for (int j = (int) (-2.5f*ZSIZE); j >= -3.f*ZSIZE; j -= 5) {
                 glBegin(GL_QUADS);
+                glNormal3f(0,1,0);
                 glTexCoord2f(0, 0);
                 glVertex3f(i, 0.f, j-5);
                 glTexCoord2f(0, 1);
@@ -630,7 +633,7 @@ public class Church {
 
     private void putTelhado(){
         textures.get(14).bind();
-        glColor3f(0.226f,0.114f,0.091f);
+        glColor4f(0.226f,0.114f,0.091f,1);
 
 //        int k=15;
         for(int i=0, k=15; i<XSIZE; i+=4, k--){
@@ -638,6 +641,7 @@ public class Church {
 
                 //right
                 glBegin(GL_QUADS);
+                glNormal3f(1,1,0);
                 glTexCoord2f(0,0);
                 glVertex3f(i, k,j);
                 glTexCoord2f(1,0);
@@ -650,6 +654,7 @@ public class Church {
 
                 //left
                 glBegin(GL_QUADS);
+                glNormal3f(-1,1,0);
                 glTexCoord2f(0,0);
                 glVertex3f(-i, k,j);
                 glTexCoord2f(0,1);

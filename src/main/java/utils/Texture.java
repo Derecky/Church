@@ -142,7 +142,8 @@ public class Texture {
      */
     public static Texture loadTexture(String path) {
         ByteBuffer image;
-        path = "images\\"  + path + ".png";
+        path = "images/"  + path + ".png";
+
         int width, height;
         try (MemoryStack stack = MemoryStack.stackPush()) {
             /* Prepare image buffers */

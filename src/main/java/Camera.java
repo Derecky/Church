@@ -102,12 +102,20 @@ public class Camera {
         //
         float[] luzAmbiente = {0.2f, 0.2f, 0.2f, 1.0f};
         float[] luzDifusa = {0.7f,0.7f,0.7f,1.0f};	        // "cor"
-        float[] luzEspecular = {1.0f, 1.0f, 1.0f, 1.0f};    // "brilho"
-        float[] posicaoLuz = {0.0f, 50.0f, 50.0f, 1.0f};
+        float[] luzEspecular = {1.0f, .0f, 1.0f, 1.0f};    // "brilho"
+        float[] posicaoLuz = {-6, 5, -13, 1};
+//        {0.0f, 50.0f, 50.0f, 1.0f};
 
         // Capacidade de brilho do material
         float[] especularidade = {1.0f,1.0f,1.0f,1.0f};
-        int especMaterial = 60;
+        int especMaterial = 128;
+
+        // Exibe uma linha da posição da luz até (0,0,0)
+        glBegin(GL_LINES);
+        glColor3f(0,0,0);
+        glVertex4fv(posicaoLuz);
+        glVertex3f(0,0,0);
+        glEnd();
 
         // Habilita o modelo de colorização de Gouraud
         glShadeModel(GL_SMOOTH);
@@ -133,7 +141,7 @@ public class Camera {
         // Habilita a luz de número 0
         glEnable(GL_LIGHT0);
         // Habilita o depth-buffering
-        glEnable(GL_DEPTH_TEST);
+//        glEnable(GL_DEPTH_TEST);
 
 
         // Especifica que a cor de fundo da janela será preta
@@ -284,11 +292,11 @@ public class Camera {
             /* Botões para alterar estado das portas */
             if (keyDown[GLFW_KEY_O]) {
                 if(door_angle >= -2.814)
-                    door_angle -= 0.004f;
+                    door_angle -= 0.01f;
             }
             if (keyDown[GLFW_KEY_C]) {
                 if(door_angle <= 0)
-                    door_angle += 0.004f;
+                    door_angle += 0.01f;
             }
 
             rotX = mouseY;
@@ -351,7 +359,7 @@ public class Camera {
                 church = new Church(textureList);
             }
             /* Aqui inicia a área de rendering */
-            makeGrid();
+//            makeGrid();
 
 
             church.drawChurch();
