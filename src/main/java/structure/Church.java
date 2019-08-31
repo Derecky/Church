@@ -1,6 +1,7 @@
 package structure;
 
 import things.*;
+import lighting.Light;
 import utils.ExternPlaces;
 import utils.Texture;
 
@@ -26,6 +27,7 @@ public class Church {
     /* Objects inside */
     private List<Texture> textures;
     private List<Chair> chairs;
+    private List<Light> lights;
     private Facade facade;
     private SoundBox soundBoxes;
     private AltarChair altarChair;
@@ -33,6 +35,7 @@ public class Church {
     public Church(List<Texture> textures){
         this.textures = textures;
         this.chairs = new ArrayList<Chair>();
+        this.lights = new ArrayList<Light>();
 
         // Cria as cadeiras
         for(int i=0, j=-5; i<17; i++, j-=4 ){
@@ -40,6 +43,12 @@ public class Church {
             chairs.add(new Chair(textures.get(0),-15, j));
             chairs.add(new Chair(textures.get(0),6, j));
             chairs.add(new Chair(textures.get(0),15, j));
+        }
+
+        // Cria os pontos de luz
+        for(int i = 0, j=-5; i<1; i++, j-=16) {
+            lights.add(new Light(-6, j));
+//            lights.add(wadd(new Light(15, j));
         }
 
         this.facade = new Facade(textures);
@@ -70,6 +79,7 @@ public class Church {
         altarChair.altarChair();
         externPlaces.makeExternalArea();
         putChairs();
+        putLights();
 
         glPopMatrix();
     }
@@ -671,6 +681,12 @@ public class Church {
     private void putChairs(){
         for(Chair chair : chairs){
             chair.drawChair();
+        }
+    }
+//
+    private void putLights(){
+        for(Light light : lights) {
+            light.drawLights();
         }
     }
 
