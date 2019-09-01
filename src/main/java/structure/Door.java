@@ -3,6 +3,7 @@ package structure;
 import org.joml.Vector3f;
 import utils.Texture;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.cos;
@@ -23,10 +24,13 @@ public class Door {
         this.door_angle = door_angle;
     }
 
-    public void update(float x, float tam, List<Texture> textures, float door_angle){
+    public void update(float x, float tam, List<Texture> textures, float door_angle, boolean cond){
         this.textures = textures;
         this.door_angle = door_angle;
-        drawDoubleDoorXPosition(x, tam);
+        if (cond)
+            drawDoubleDoorXPosition(x, tam);
+        else
+            drawBackDoors(x, tam);
     }
 
     public void drawDoubleDoorXPosition(float x, float tam){
@@ -70,27 +74,74 @@ public class Door {
 
     public void drawBackDoors(float x, float tam){
 
-        glColor3f(0.2f,0.2f,0.2f);
+        glColor3f(0.3f,0.3f,0.3f);
         glPushMatrix();
+        textures.get(6).bind();
         glBegin(GL_QUADS);
         glNormal3f(0,0,1);
+        glTexCoord2f(0,1);
         glVertex3f(x,0,-3.5f*30 + 17 + 0.025f*3);
+        glTexCoord2f(1,1);
         glVertex3f(x-tam,0,-3.5f*30 + 17 + 0.025f*3);
+        glTexCoord2f(1,0);
         glVertex3f(x-tam,5f,-3.5f*30 + 17 + 0.025f*3);
+        glTexCoord2f(0,0);
         glVertex3f(x,5f,-3.5f*30 + 17 + 0.025f*3);
         glEnd();
         glPopMatrix();
 
-        glColor3f(0.2f,0.2f,0.2f);
+        textures.get(5).bind();
+        glBegin(GL_POLYGON);
+        for (int k = 0; k < 360; k++) {
+            float angle = (float) (2*Math.PI*k/360);
+            if(StrictMath.sin(angle) >= 0 ){
+                glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float) StrictMath.sin(angle));
+                glVertex3f(x-(tam/2) + (float)cos(angle)*(tam/2) , 5 + (float) StrictMath.sin(angle)*1.f , -3.5f*30 + 17.01f + 0.025f*3 );
+            }
+        }
+        glEnd();
+        glBegin(GL_LINE_LOOP);
+        for (int k = 0; k < 360; k++) {
+            float angle = (float) (2*Math.PI*k/360);
+            if(StrictMath.sin(angle) >= 0 ){
+                glVertex3f(x-(tam/2) + (float)cos(angle)*(tam/2) , 5 + (float) StrictMath.sin(angle)*1.f , -3.5f*30 + 17.01f + 0.025f*3 );
+            }
+        }
+        glEnd();
+
+        textures.get(6).bind();
         glPushMatrix();
         glBegin(GL_QUADS);
         glNormal3f(0,0, 1);
+        glTexCoord2f(0,1);
         glVertex3f(-x ,0,-3.5f*30 + 17 + 0.025f*3);
+        glTexCoord2f(1,1);
         glVertex3f(-x+tam,0,-3.5f*30 + 17 + 0.025f*3);
+        glTexCoord2f(1,0);
         glVertex3f(-x+tam,5f,-3.5f*30 + 17 + 0.025f*3);
+        glTexCoord2f(0,0);
         glVertex3f(-x ,5f,-3.5f*30 + 17 + 0.025f*3);
         glEnd();
         glPopMatrix();
+
+        textures.get(5).bind();
+        glBegin(GL_POLYGON);
+        for (int k = 0; k < 360; k++) {
+            float angle = (float) (2*Math.PI*k/360);
+            if(StrictMath.sin(angle) >= 0 ){
+                glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float) StrictMath.sin(angle));
+                glVertex3f(-x+(tam/2) - (float)cos(angle)*(tam/2) , 5 + (float) StrictMath.sin(angle)*1.f , -3.5f*30 + 17.01f + 0.025f*3 );
+            }
+        }
+        glEnd();
+        glBegin(GL_LINE_LOOP);
+        for (int k = 0; k < 360; k++) {
+            float angle = (float) (2*Math.PI*k/360);
+            if(StrictMath.sin(angle) >= 0 ){
+                glVertex3f(-x+(tam/2) - (float)cos(angle)*(tam/2) , 5 + (float) StrictMath.sin(angle)*1.f , -3.5f*30 + 17.01f + 0.025f*3 );
+            }
+        }
+        glEnd();
 
     }
 }

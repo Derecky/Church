@@ -245,7 +245,7 @@ public class Camera {
         glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
 
         /* Verificar esse clear color */
-        glClearColor(0.97f, 0.97f, 0.97f, 1.0f);
+        glClearColor(0.f, 0.f, 0.f, 1.0f);
 
         long lastTime = System.nanoTime();
 
@@ -359,6 +359,8 @@ public class Camera {
                  * externalground1(Textura de solo, lado de fora da igreja)
                  * telhado      (Textura do telhado da igreja)
                  * sound        (Textura da caixa de som)
+                 * flooraltar   (Textura do piso do altar)
+                 * quadro       (Textura do quadro de avisos)
                  * */
                 textureList.add(Texture.loadTexture("chair"));              //0     - chair
                 textureList.add(Texture.loadTexture("wall"));               //1     - wall
@@ -369,13 +371,15 @@ public class Camera {
                 textureList.add(Texture.loadTexture("door"));               //6     - door
                 textureList.add(Texture.loadTexture("forro"));              //7     - cruz
                 textureList.add(Texture.loadTexture("piso"));               //8     - ground
-                textureList.add(Texture.loadTexture("forro"));              //9     - altarstair
+                textureList.add(Texture.loadTexture("altarstair"));         //9     - altarstair
                 textureList.add(Texture.loadTexture("forro"));              //10    - ceil
-                textureList.add(Texture.loadTexture("forro"));              //11    - window
+                textureList.add(Texture.loadTexture("door"));              //11    - window
                 textureList.add(Texture.loadTexture("externalground"));     //12    - externalground
                 textureList.add(Texture.loadTexture("externalground1"));    //13    - externalground1
                 textureList.add(Texture.loadTexture("telhado"));            //14    - telhado
                 textureList.add(Texture.loadTexture("sound"));              //15    - sound
+                textureList.add(Texture.loadTexture("flooraltar"));         //16    - flooraltar
+                textureList.add(Texture.loadTexture("quadro"));             //17    - quadro
                 skyBox = new SkyBox(texture);
                 chair = new Chair(texture, 0, -10);
                 church = new Church(textureList);
@@ -387,10 +391,10 @@ public class Camera {
 
 
             church.drawChurch();
-            centralDoor.update(0, 3, textureList, door_angle);
-            leftDoor.update(12.5f,2.5f, textureList, door_angle);
-            rightDoor.update(-12.5f,2.5f, textureList, door_angle);
-            backdoors.drawBackDoors(18.f,3f);
+            centralDoor.update(0, 3, textureList, door_angle, true);
+            leftDoor.update(12.5f,2.5f, textureList, door_angle, true);
+            rightDoor.update(-12.5f,2.5f, textureList, door_angle, true);
+            backdoors.update(18.f,3f, textureList, door_angle, false);
             setUpLighting();
             /* Aqui termina a área de rendering*/
 

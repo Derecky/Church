@@ -69,6 +69,7 @@ public class Church {
         altarArch();
         putTelhado();
         drawGroundChurch();
+        drawWindows();
 
         facade.criarFachada();
         soundBoxes.putSoundBoxes();
@@ -110,6 +111,210 @@ public class Church {
         for (int i=0, j=-12 ; i<8; i++,j-=12){
             drawPilar((float) j);
         }
+    }
+
+    public void drawWindows(){
+        float detail = 0.04f;
+        float[] alt = {3,6};
+        for (int i=0, z=-18 ; i<6 ; i++, z-=12){
+
+            if(i==3) {
+                alt[0] = 0;
+            }else{
+                alt[0] = 3;
+            }
+            /* Dentro Direita*/
+            glPushMatrix();
+            textures.get(6).bind();
+            glBegin(GL_QUAD_STRIP);
+            glTexCoord2f(0,0.f);
+            glVertex3f(XSIZE-thickness-detail, alt[1],z-2.5f);
+            glTexCoord2f(0,1.f);
+            glVertex3f(XSIZE-thickness-detail, alt[0],z-2.5f);
+            glTexCoord2f(1,0.f);
+            glVertex3f(XSIZE-thickness-detail, alt[1],z);
+            glTexCoord2f(1,1.f);
+            glVertex3f(XSIZE-thickness-detail, alt[0],z);
+            glEnd();
+
+            glBegin(GL_QUAD_STRIP);
+            glTexCoord2f(0,0.f);
+            glVertex3f(XSIZE-thickness-detail, alt[1],z);
+            glTexCoord2f(0,1.f);
+            glVertex3f(XSIZE-thickness-detail, alt[0],z);
+            glTexCoord2f(1,0.f);
+            glVertex3f(XSIZE-thickness-detail, alt[1],z+2.5f);
+            glTexCoord2f(1,1.f);
+            glVertex3f(XSIZE-thickness-detail, alt[0],z+2.5f);
+            glEnd();
+
+            /* Fora */
+            glPushMatrix();
+            textures.get(6).bind();
+            glBegin(GL_QUAD_STRIP);
+            glTexCoord2f(0,0.f);
+            glVertex3f(XSIZE+thickness+detail, alt[1],z-2.5f);
+            glTexCoord2f(0,1.f);
+            glVertex3f(XSIZE+thickness+detail, alt[0],z-2.5f);
+            glTexCoord2f(1,0.f);
+            glVertex3f(XSIZE+thickness+detail, alt[1],z);
+            glTexCoord2f(1,1.f);
+            glVertex3f(XSIZE+thickness+detail, alt[0],z);
+            glEnd();
+
+            glBegin(GL_QUAD_STRIP);
+            glTexCoord2f(0,0.f);
+            glVertex3f(XSIZE+thickness+detail, alt[1],z);
+            glTexCoord2f(0,1.f);
+            glVertex3f(XSIZE+thickness+detail, alt[0],z);
+            glTexCoord2f(1,0.f);
+            glVertex3f(XSIZE+thickness+detail, alt[1],z+2.5f);
+            glTexCoord2f(1,1.f);
+            glVertex3f(XSIZE+thickness+detail, alt[0],z+2.5f);
+            glEnd();
+
+            /*Direita*/
+            textures.get(5).bind();
+            glBegin(GL_POLYGON);
+            for (int k = 0; k < 360; k++) {
+                float angle = (float) (2*Math.PI*k/360);
+                if(sin(angle) >= 0 ){
+                    glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float)sin(angle));
+                    glVertex3f(XSIZE-thickness-detail , alt[1] + (float)sin(angle)*0.75f ,  z -(float)cos(angle)*2.5f);
+                }
+            }
+            glEnd();
+            glBegin(GL_LINE_LOOP);
+            for (int k = 0; k < 360; k++) {
+                float angle = (float) (2*Math.PI*k/360);
+                if(sin(angle) >= 0 ){
+                    glVertex3f( XSIZE-thickness-detail, alt[1] + (float)sin(angle)*0.75f,z - (float)cos(angle)*2.5f);
+                }
+            }
+            glEnd();
+            glBegin(GL_POLYGON);
+            for (int k = 0; k < 360; k++) {
+                float angle = (float) (2*Math.PI*k/360);
+                if(sin(angle) >= 0 ){
+                    glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float)sin(angle));
+                    glVertex3f(XSIZE+thickness+detail , alt[1] + (float)sin(angle)*0.75f ,  z -(float)cos(angle)*2.5f);
+                }
+            }
+            glEnd();
+            glBegin(GL_LINE_LOOP);
+            for (int k = 0; k < 360; k++) {
+                float angle = (float) (2*Math.PI*k/360);
+                if(sin(angle) >= 0 ){
+                    glVertex3f( XSIZE+thickness+detail, alt[1] + (float)sin(angle)*0.75f,z - (float)cos(angle)*2.5f);
+                }
+            }
+            glEnd();
+
+            if(i!=5){
+                textures.get(6).bind();
+                /* Dentro esquerda*/
+                glPushMatrix();
+                glBegin(GL_QUAD_STRIP);
+                glTexCoord2f(0,0.f);
+                glVertex3f(-XSIZE-thickness-detail, alt[1],z-2.5f);
+                glTexCoord2f(0,1.f);
+                glVertex3f(-XSIZE-thickness-detail, alt[0],z-2.5f);
+                glTexCoord2f(1,0.f);
+                glVertex3f(-XSIZE-thickness-detail, alt[1],z);
+                glTexCoord2f(1,1.f);
+                glVertex3f(-XSIZE-thickness-detail, alt[0],z);
+                glEnd();
+
+                glBegin(GL_QUAD_STRIP);
+                glTexCoord2f(0,0.f);
+                glVertex3f(-XSIZE-thickness-detail, alt[1],z);
+                glTexCoord2f(0,1.f);
+                glVertex3f(-XSIZE-thickness-detail, alt[0],z);
+                glTexCoord2f(1,0.f);
+                glVertex3f(-XSIZE-thickness-detail, alt[1],z+2.5f);
+                glTexCoord2f(1,1.f);
+                glVertex3f(-XSIZE-thickness-detail, alt[0],z+2.5f);
+                glEnd();
+
+                /* Fora */
+                glPushMatrix();
+                textures.get(6).bind();
+                glBegin(GL_QUAD_STRIP);
+                glTexCoord2f(0,0.f);
+                glVertex3f(-XSIZE+thickness+detail, alt[1],z-2.5f);
+                glTexCoord2f(0,1.f);
+                glVertex3f(-XSIZE+thickness+detail, alt[0],z-2.5f);
+                glTexCoord2f(1,0.f);
+                glVertex3f(-XSIZE+thickness+detail, alt[1],z);
+                glTexCoord2f(1,1.f);
+                glVertex3f(-XSIZE+thickness+detail, alt[0],z);
+                glEnd();
+
+                glBegin(GL_QUAD_STRIP);
+                glTexCoord2f(0,0.f);
+                glVertex3f(-XSIZE+thickness+detail, alt[1],z);
+                glTexCoord2f(0,1.f);
+                glVertex3f(-XSIZE+thickness+detail, alt[0],z);
+                glTexCoord2f(1,0.f);
+                glVertex3f(-XSIZE+thickness+detail, alt[1],z+2.5f);
+                glTexCoord2f(1,1.f);
+                glVertex3f(-XSIZE+thickness+detail, alt[0],z+2.5f);
+                glEnd();
+
+                textures.get(5).bind();
+                /* Esquerda */
+                glBegin(GL_POLYGON);
+                for (int k = 0; k < 360; k++) {
+                    float angle = (float) (2*Math.PI*k/360);
+                    if(sin(angle) >= 0 ){
+                        glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float)sin(angle));
+                        glVertex3f(-XSIZE-thickness-detail , alt[1] + (float)sin(angle)*0.75f ,  z -(float)cos(angle)*2.5f);
+                    }
+                }
+                glEnd();
+
+                glBegin(GL_LINE_LOOP);
+                for (int k = 0; k < 360; k++) {
+                    float angle = (float) (2*Math.PI*k/360);
+                    if(sin(angle) >= 0 ){
+                        glVertex3f( -XSIZE-thickness-detail, alt[1] + (float)sin(angle)*0.75f,z - (float)cos(angle)*2.5f);
+                    }
+                }
+                glEnd();
+
+                glBegin(GL_POLYGON);
+                for (int k = 0; k < 360; k++) {
+                    float angle = (float) (2*Math.PI*k/360);
+                    if(sin(angle) >= 0 ){
+                        glTexCoord2f( 0.2f + ((float)cos(angle)+1)/3.25f,0.5f + 0.35f*(float)sin(angle));
+                        glVertex3f(-XSIZE+thickness+detail , alt[1] + (float)sin(angle)*0.75f ,  z -(float)cos(angle)*2.5f);
+                    }
+                }
+                glEnd();
+                glBegin(GL_LINE_LOOP);
+                for (int k = 0; k < 360; k++) {
+                    float angle = (float) (2*Math.PI*k/360);
+                    if(sin(angle) >= 0 ){
+                        glVertex3f( -XSIZE+thickness+detail, alt[1] + (float)sin(angle)*0.75f,z - (float)cos(angle)*2.5f);
+                    }
+                }
+                glEnd();
+            }
+
+        }
+
+        textures.get(17).bind();
+        glBegin(GL_QUADS);
+        glNormal3f(1,0,0);
+        glTexCoord2f(0.03f,0.03f);
+        glVertex3f(XSIZE-thickness-detail, 6, -9);
+        glTexCoord2f(0.03f,0.97f);
+        glVertex3f(XSIZE-thickness-detail, 3, -9);
+        glTexCoord2f(0.98f,0.97f);
+        glVertex3f(XSIZE-thickness-detail, 3, -3);
+        glTexCoord2f(0.98f,0.03f);
+        glVertex3f(XSIZE-thickness-detail, 6, -3);
+        glEnd();
     }
 
     public void drawPilar(float z){
@@ -609,7 +814,7 @@ public class Church {
         textures.get(8).bind();
 
         for(int i=(int) -XSIZE; i< XSIZE; i+=4 ) {
-            for (int j = 0; j >= -3.5f*ZSIZE; j -= 5) {
+            for (int j = 0; j >= -3.5f*ZSIZE; j -= 4) {
                 glBegin(GL_QUADS);
                 glNormal3f(0,1,0);
                 glTexCoord2f(0, 0);
