@@ -23,7 +23,12 @@ public class Chair {
     public void drawChair(){
         glPushMatrix();
         texture.bind();
-        glColor3f(0.6f,0.432f,0.264f);
+        glColor4f(0.6f,0.432f,0.264f,1.f);
+        float[] chairColor = {0.6f, 0.432f, 0.364f, 1.0f};
+        float[] specref = {1.0f, 1.0f, 1.0f, 1.0f};
+//        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, chairColor);
+//        glMaterialfv(GL_FRONT, GL_SPECULAR,specref);
+//        glMateriali(GL_FRONT,GL_SHININESS,20);
         hasteChairCenter();
         hasteChair();
         assento();

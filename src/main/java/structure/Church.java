@@ -46,8 +46,8 @@ public class Church {
         }
 
         // Cria os pontos de luz
-        for(int i = 0, j=-5; i<1; i++, j-=16) {
-            lights.add(new Light(-6, j));
+        for(int i = 1, j=-5; i<3; i++, j-=16) {
+            lights.add(new Light(-6, j,i));
 //            lights.add(wadd(new Light(15, j));
         }
 
@@ -67,7 +67,6 @@ public class Church {
         structure();
         putPilars();
         altarArch();
-        drawCeil();
         putTelhado();
         drawGroundChurch();
 
@@ -79,16 +78,19 @@ public class Church {
         altarChair.altarChair();
         externPlaces.makeExternalArea();
         putChairs();
-        putLights();
+//        putLights();
 
+        drawCeil();
         glPopMatrix();
     }
 
     private void drawCeil(){
+        float[] ceilColor = {1.0f, 1.f, 1.f, 1.0f};
         for(int i = (int) -XSIZE; i<XSIZE; i+=4) {
             glPushMatrix();
             glColor4f(1,1,1,0);
             textures.get(10).bind();
+            glMaterialfv(GL_BACK, GL_AMBIENT_AND_DIFFUSE, ceilColor);
             glBegin(GL_QUADS);
             glNormal3f(0,-1,0);
             glTexCoord2f(0,1);
@@ -637,6 +639,19 @@ public class Church {
                 glEnd();
             }
         }
+        glLineWidth(1);
+        for(int i = (int) (-XSIZE); i<= XSIZE; i+=4 ) {
+            glBegin(GL_LINES);
+            glVertex3f(i, 0.01f, 0);
+            glVertex3f(i, 0.01f, -3.5f*ZSIZE);
+            glEnd();
+        }
+        for (int j = (int) 0; j >= -3.5f*ZSIZE; j -= 5) {
+            glBegin(GL_LINES);
+            glVertex3f(-XSIZE, 0.01f, j);
+            glVertex3f(XSIZE, 0.01f, j);
+            glEnd();
+        }
 
 
     }
@@ -644,11 +659,11 @@ public class Church {
     private void putTelhado(){
         textures.get(14).bind();
         glColor4f(0.226f,0.114f,0.091f,1);
-
+        float[] color = {0.226f,0.114f,0.091f, .0f};
 //        int k=15;
         for(int i=0, k=15; i<XSIZE; i+=4, k--){
             for(int j=0; j>-3.5*ZSIZE ; j-=5){
-
+//                glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color);
                 //right
                 glBegin(GL_QUADS);
                 glNormal3f(1,1,0);

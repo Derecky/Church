@@ -37,8 +37,10 @@ public class Door {
         glColor3f(0.9f,0.9f,0.9f);
         textures.get(6).bind();
         /* Left */
+
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,0,1);
         glTexCoord2f(0,0);
         glVertex3f(x-tam+pointright.x,0,pointright.z);
         glTexCoord2f(0,1);
@@ -52,6 +54,7 @@ public class Door {
 
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,0, 1);
         glTexCoord2f(0,0);
         glVertex3f(x+tam-pointleft.x,0,pointleft.z);
         glTexCoord2f(0,1);
@@ -70,6 +73,7 @@ public class Door {
         glColor3f(0.2f,0.2f,0.2f);
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,0,1);
         glVertex3f(x,0,-3.5f*30 + 17 + 0.025f*3);
         glVertex3f(x-tam,0,-3.5f*30 + 17 + 0.025f*3);
         glVertex3f(x-tam,5f,-3.5f*30 + 17 + 0.025f*3);
@@ -80,6 +84,7 @@ public class Door {
         glColor3f(0.2f,0.2f,0.2f);
         glPushMatrix();
         glBegin(GL_QUADS);
+        glNormal3f(0,0, 1);
         glVertex3f(-x ,0,-3.5f*30 + 17 + 0.025f*3);
         glVertex3f(-x+tam,0,-3.5f*30 + 17 + 0.025f*3);
         glVertex3f(-x+tam,5f,-3.5f*30 + 17 + 0.025f*3);

@@ -6,15 +6,19 @@ public class Light {
 
     float x;
     float z;
+    int lightName;
 
-    public Light(float x, float z){
+    public Light(float x, float z, int index){
         this.x = x;
         this.z = z;
+        this.lightName = 0x4000 + index;
     }
 
     public void drawLights(){
         putLights();
     }
+
+
 
     private void putLights() {
         float[] luzAmbiente = {0.2f, 0.2f, 0.2f, 1.0f};
@@ -46,17 +50,17 @@ public class Light {
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
 
         // Define os parâmetros da luz de número 0
-        glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
-        glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa );
-        glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular );
-        glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz );
+        glLightfv(lightName, GL_AMBIENT, luzAmbiente);
+        glLightfv(lightName, GL_DIFFUSE, luzDifusa );
+        glLightfv(lightName, GL_SPECULAR, luzEspecular );
+        glLightfv(lightName, GL_POSITION, posicaoLuz );
 
         // Habilita a definição da cor do material a partir da cor corrente
         glEnable(GL_COLOR_MATERIAL);
         //Habilita o uso de iluminação
         glEnable(GL_LIGHTING);
         // Habilita a luz de número 0
-        glEnable(GL_LIGHT0);
+        glEnable(lightName);
     }
 
 }
