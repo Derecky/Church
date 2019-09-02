@@ -9,5 +9,8 @@
         <module name="church" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="church" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
