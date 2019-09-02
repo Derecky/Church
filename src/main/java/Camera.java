@@ -69,7 +69,7 @@ public class Camera {
     private boolean trigger = true;
     private boolean trigger1 = true;
 
-    void run() {
+    void run() throws Exception {
         try {
             /* Pega tamanho da tela para ajustar attributos da classe */
             Dimension canvas = Toolkit.getDefaultToolkit().getScreenSize();
@@ -94,7 +94,47 @@ public class Camera {
     void createTextures(){
 
     }
-    
+
+//    void setupDepthShader() throws Exception {
+//        depthShaderProgram = new ShaderProgram();
+//        depthShaderProgram.createVertexShader(Utils.loadResource("/shaders/depth_vertex.vs"));
+//        depthShaderProgram.createFragmentShader(Utils.loadResource("/shaders/depth_fragment.fs"));
+//        depthShaderProgram.link();
+//
+//        depthShaderProgram.createUniform("orthoProjectionMatrix");
+//        depthShaderProgram.createUniform("modelLightViewMatrix");
+//    }
+
+//    void renderDepthMap(Window window, Camera camera, Scene scene) {
+//        glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.getDepthMapFBO());
+//        glViewport(0, 0, ShadowMap.SHADOW_MAP_WIDTH, ShadowMap.SHADOW_MAP_HEIGHT);
+//
+//        glClear(GL_DEPTH_BUFFER_BIT);
+//
+//        depthShaderProgram.bind();
+//
+//        float lightAngleX = (float)Math.toDegrees(Math.acos(lightDirection.z));
+//        float lightAngleY = (float)Math.toDegrees(Math.asin(lightDirection.x));
+//        float lightAngleZ = 0;
+//        Matrix4f lightViewMatrix = transformation.updateLightViewMatrix(new Vector3f(lightDirection).mul(light.getShadowPosMult()), new Vector3f(lightAngleX, lightAngleY, lightAngleZ));
+//
+//        Matrix4f orthoProjMatrix = transformation.updateOrthoProjectionMatrix(orthCoords.left, orthCoords.right, orthCoords.bottom, orthCoords.top, orthCoords.near, orthCoords.far);
+//
+//        depthShaderProgram.setUniform("orthoProjectionMatrix", orthoProjMatrix);
+//        Map<Mesh, List<GameItem>> mapMeshes = scene.getGameMeshes();
+//        for (Mesh mesh : mapMeshes.keySet()) {
+//            mesh.renderList(mapMeshes.get(mesh), (GameItem gameItem) -> {
+//                        Matrix4f modelLightViewMatrix = transformation.buildModelViewMatrix(gameItem, lightViewMatrix);
+//                        depthShaderProgram.setUniform("modelLightViewMatrix", modelLightViewMatrix);
+//                    }
+//            );
+//        }
+//
+//        // Unbind
+//        depthShaderProgram.unbind();
+//        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//    }
+
     void setUpLighting() {
 //        glEnable(GL_LIGHTING);
 //        glEnable(GL_LIGHT0);
@@ -107,7 +147,7 @@ public class Camera {
         float[] luzAmbiente = {0.2f, 0.2f, 0.2f, 1.0f};
         float[] luzDifusa = {0.7f,0.7f,0.7f,1.0f};	        // "cor"
         float[] luzEspecular = {1.0f, 1.0f, 1.0f, 1.0f};    // "brilho"
-        float[] posicaoLuz = {0.0f, 500.0f, 1000.0f, 1.0f};
+        float[] posicaoLuz = {0.0f, 9.0f, -45.0f, 1.0f};
 
         // Capacidade de brilho do material
         float[] especularidade = {1.0f,1.0f,1.0f,1.0f};
@@ -239,7 +279,7 @@ public class Camera {
 
     }
 
-    void loop() {
+    void loop() throws Exception {
         GL.createCapabilities();
         glEnable(GL_DEPTH_TEST);
         glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
@@ -333,6 +373,7 @@ public class Camera {
                 .translate(-pos.x, -pos.y, -pos.z);
             glLoadMatrixf(mat.get(fb));
 
+//            renderDepthMap(window, camera, scene);
             glViewport(0, 0, width, height);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -341,7 +382,7 @@ public class Camera {
             if(trigger){
                 trigger = false;
                 textureList = new ArrayList<Texture>();
-                texture = new Texture();
+                texture = new Texture(width, height, GL_RGBA);
                 /* Texture Order */
                 /* chair        (Cadeiras, mesa, genoflexório, cadeira do padre, pulpito e crucifixo externo)
                  * wall         (toda estrutura),
@@ -389,7 +430,7 @@ public class Camera {
 
 
 
-
+//            setupDepthShader();
             church.drawChurch();
             centralDoor.update(0, 3, textureList, door_angle, true);
             leftDoor.update(12.5f,2.5f, textureList, door_angle, true);
@@ -433,7 +474,7 @@ public class Camera {
         glCallList(dl);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         new Camera().run();
     }
 }

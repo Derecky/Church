@@ -5,6 +5,7 @@ import java.nio.IntBuffer;
 import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
 import static org.lwjgl.stb.STBImage.*;
 public class Texture {
@@ -14,8 +15,19 @@ public class Texture {
     private int height;
 
     /** Creates a texture. */
-    public Texture() {
+//    public Texture() {
+//        this.id = glGenTextures();
+//    }
+    public Texture(int width, int height, int pixelFormat) throws Exception {
         this.id = glGenTextures();
+        this.width = width;
+        this.height = height;
+        glBindTexture(GL_TEXTURE_2D, this.id);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, this.width, this.height, 0, pixelFormat, GL_FLOAT, (ByteBuffer) null);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     }
 
     /**
@@ -116,8 +128,8 @@ public class Texture {
      *
      * @return Texture from the specified data
      */
-    public static Texture createTexture(int width, int height, ByteBuffer data) {
-        Texture texture = new Texture();
+    public static Texture createTexture(int width, int height, ByteBuffer data) throws Exception {
+        Texture texture = new Texture(width, height, GL_RGBA);
         texture.setWidth(width);
         texture.setHeight(height);
 
@@ -140,7 +152,7 @@ public class Texture {
      *
      * @return Texture from specified file
      */
-    public static Texture loadTexture(String path) {
+    public static Texture loadTexture(String path) throws Exception {
         ByteBuffer image;
         path = "images/"  + path + ".png";
 
