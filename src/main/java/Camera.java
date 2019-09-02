@@ -60,7 +60,7 @@ public class Camera {
     float rotY = 0.0f;
 
     /* Variáveis de teste */
-
+    float[] posicaoLuz = {0.0f, 9.0f, -45.0f, 1.0f};
     ArrayList<Texture> textureList;
     Texture texture;
     SkyBox skyBox;
@@ -68,6 +68,8 @@ public class Camera {
     Church church;
     private boolean trigger = true;
     private boolean trigger1 = true;
+    private boolean trigger2 = true;
+    private boolean trigger3 = true;
 
     void run() throws Exception {
         try {
@@ -147,7 +149,7 @@ public class Camera {
         float[] luzAmbiente = {0.2f, 0.2f, 0.2f, 1.0f};
         float[] luzDifusa = {0.7f,0.7f,0.7f,1.0f};	        // "cor"
         float[] luzEspecular = {1.0f, 1.0f, 1.0f, 1.0f};    // "brilho"
-        float[] posicaoLuz = {0.0f, 9.0f, -45.0f, 1.0f};
+
 
         // Capacidade de brilho do material
         float[] especularidade = {1.0f,1.0f,1.0f,1.0f};
@@ -170,43 +172,22 @@ public class Camera {
         glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular );
         glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz );
 
-        glBegin(GL_LINES);
-        glColor3f(0,0,0);
-        glVertex4fv(posicaoLuz);
-        glVertex3f(0,0,0);
-        glEnd();
+//        glBegin(GL_LINES);
+//        glColor3f(0,0,0);
+//        glVertex4fv(posicaoLuz);
+//        glVertex3f(0,0,0);
+//        glEnd();
 
         // Habilita a definição da cor do material a partir da cor corrente
         glEnable(GL_COLOR_MATERIAL);
         //Habilita o uso de iluminação
-        glDisable(GL_CULL_FACE);
-        glEnable(GL_LIGHTING);
+//        glEnable(GL_LIGHTING);
         // Habilita a luz de número 0
 //        glEnable(GL_LIGHT0);
         // Habilita o depth-buffering
         glEnable(GL_DEPTH_TEST);
         glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
 
-
-        // Especifica que a cor de fundo da janela será preta
-//        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//
-//
-//        glLightfv(GL_LIGHT0, GL_POSITION, (new float[] {6, 5, 100, 1}));
-        //
-//        glClearColor(1,1,1,1);
-//        glShadeModel(GL_SMOOTH);
-//        glEnable(GL_COLOR_MATERIAL);
-//        glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-
-        // Habilita a definição da cor do material a partir da cor corrente
-//        glEnable(GL_COLOR_MATERIAL);
-        //Habilita o uso de iluminação
-//        glEnable(GL_LIGHTING);
-        // Habilita a luz de número 0
-//        glEnable(GL_LIGHT0);
-        // Habilita o depth-buffering
-//        glEnable(GL_DEPTH_TEST);
     }
 
     void init() {
@@ -337,11 +318,11 @@ public class Camera {
             /* Botões para alterar estado das portas */
             if (keyDown[GLFW_KEY_O]) {
                 if(door_angle >= -2.814)
-                    door_angle -= 0.004f;
+                    door_angle -= 0.01f;
             }
             if (keyDown[GLFW_KEY_C]) {
                 if(door_angle <= 0)
-                    door_angle += 0.004f;
+                    door_angle += 0.01f;
             }
 
             /* Turn On/Off light */
@@ -355,8 +336,16 @@ public class Camera {
                     glEnable(GL_LIGHT0);
                 }
             }
+            if(keyDown[GLFW_KEY_K]){
+                if(trigger3){
+                    glEnable(GL_LIGHTING);
+                    trigger3 = false;
+                }else{
+                    glDisable(GL_LIGHTING);
+                    trigger3 = true;
+                }
+            }
 
-            /* Move Light */
 
 
             rotX = mouseY;
@@ -406,7 +395,7 @@ public class Camera {
                 textureList.add(Texture.loadTexture("chair"));              //0     - chair
                 textureList.add(Texture.loadTexture("wall"));               //1     - wall
                 textureList.add(Texture.loadTexture("wall2"));              //2     - wall2
-                textureList.add(Texture.loadTexture("forro"));              //3     - wall3
+                textureList.add(Texture.loadTexture("wall2"));              //3     - wall3
                 textureList.add(Texture.loadTexture("vitralfachada"));      //4     - vitralfachada
                 textureList.add(Texture.loadTexture("vitral2"));            //5     - vitral2
                 textureList.add(Texture.loadTexture("door"));               //6     - door
@@ -421,6 +410,7 @@ public class Camera {
                 textureList.add(Texture.loadTexture("sound"));              //15    - sound
                 textureList.add(Texture.loadTexture("flooraltar"));         //16    - flooraltar
                 textureList.add(Texture.loadTexture("quadro"));             //17    - quadro
+                textureList.add(Texture.loadTexture("santa"));             //18    - santa
                 skyBox = new SkyBox(texture);
                 chair = new Chair(texture, 0, -10);
                 church = new Church(textureList);
@@ -428,7 +418,18 @@ public class Camera {
             /* Aqui inicia a área de rendering */
 //            makeGrid();
 
-
+            if(keyDown[GLFW_KEY_L]){
+                if(trigger2){
+                    trigger2 = true;
+                    glBegin(GL_LINES);
+                    glColor3f(0,0,0);
+                    glVertex4fv(posicaoLuz);
+                    glVertex3f(0,0,0);
+                    glEnd();
+                }else{
+                    trigger2 = false;
+                }
+            }
 
 //            setupDepthShader();
             church.drawChurch();

@@ -30,7 +30,7 @@ public class Facade {
         criarAreaPortasLaterais();
         criarAreaPortaCentral();
 
-        glColor4f(0.25f, 0.25f, 0.2f,1);
+        glColor4f(0.4f, 0.4f, 0.3f,1);
         criarPilaresLaterais(XSIZE,YSIZE,1.5f);
         criarPilaresLaterais(XSIZE-3.5f, YSIZE + 3, 2 );
         criarPilaresLaterais(XSIZE-10f,YSIZE+4.5f,2);

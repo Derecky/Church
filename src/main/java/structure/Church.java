@@ -383,6 +383,26 @@ public class Church {
             if(j==2) j=0;
         }
         glEnd();
+
+        for (int i = 0, j=0; i < 360; i++, j+=0.5) {
+            textures.get(18).bind();
+            float angle = (float) (2 * Math.PI * i / 360);
+            if ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f == -ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f ) {
+               glBegin(GL_QUADS);
+                glTexCoord2f(0,0);
+                glVertex3f(((float) sin(angle) * ZSIZE / 3f) - 1.f, 4, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
+                glTexCoord2f(1,0);
+                glVertex3f(((float) sin(angle) * ZSIZE / 3f) + 1.f, 4, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
+                glTexCoord2f(1,1);
+                glVertex3f(((float) sin(angle) * ZSIZE / 3f) + 1.f, 6, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
+                glTexCoord2f(0,1);
+                glVertex3f(((float) sin(angle) * ZSIZE / 3f) - 1.f, 6, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
+                glEnd();
+            }
+            if(j==2) j=0;
+        }
+
+
     }
 
     public void structure() {
