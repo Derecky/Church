@@ -411,6 +411,7 @@ public class Camera {
                 textureList.add(Texture.loadTexture("flooraltar"));         //16    - flooraltar
                 textureList.add(Texture.loadTexture("quadro"));             //17    - quadro
                 textureList.add(Texture.loadTexture("santa"));             //18    - santa
+                textureList.add(Texture.loadTexture("cruzigreja"));             //18    - santa
                 skyBox = new SkyBox(texture);
                 chair = new Chair(texture, 0, -10);
                 church = new Church(textureList);

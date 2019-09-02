@@ -398,6 +398,18 @@ public class Church {
                 glTexCoord2f(0,1);
                 glVertex3f(((float) sin(angle) * ZSIZE / 3f) - 1.f, 6, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
                 glEnd();
+
+                textures.get(19).bind();
+                glBegin(GL_QUADS);
+                glTexCoord2f(0,0);
+                glVertex3f(((float) sin(angle) * ZSIZE / 3f) - 1.f, 6, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
+                glTexCoord2f(1,0);
+                glVertex3f(((float) sin(angle) * ZSIZE / 3f) + 1.f, 6, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
+                glTexCoord2f(1,1);
+                glVertex3f(((float) sin(angle) * ZSIZE / 3f) + 1.f, 8, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
+                glTexCoord2f(0,1);
+                glVertex3f(((float) sin(angle) * ZSIZE / 3f) - 1.f, 8, ((float) cos(angle) * ZSIZE / 3f - 3.5f * ZSIZE + 3 * ZSIZE / 4 - 0.5f) + 0.5f );
+                glEnd();
             }
             if(j==2) j=0;
         }
